@@ -1,13 +1,20 @@
 //User schema
 module.exports=(sequelize,DataTypes) => {
 const User=sequelize.define("user", {
-    userName: {
+    name: {
         type:DataTypes.STRING,
-        allowNull:false
+        unique:false,
+        allowNull:true
+    },
+    email:{
+        type:DataTypes.STRING,
+        unique:true,
+        isEmail:true,
+        allowNull:true
     },
     password: {
         type:DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 }, {timestamps: true}, );
 return User;
