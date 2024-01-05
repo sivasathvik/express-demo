@@ -3,6 +3,7 @@ const bodyParser=require("body-parser");
 const sequelize = require("sequelize");
 var cors=require('cors');
 const register=require('./services/register')
+const login=require('./services/login')
 const db = require("./models");
 const app=express();
 const port=3001;
@@ -42,8 +43,19 @@ app.post('/register',cors(corsOptions), async (req,res) => {
 
     } catch(error) {
         console.log(`error is  ${JSON.stringify(error)}`);
-        return res.status(error.status).send(error.message);
+       return res.status(error.status).send(error.message);
 
+    }
+});
+
+app.post("/login", cors(corsOptions), async(req,res) => {
+    console.log("Inside login");
+    try{
+       const result= await login(req.body.email,req.body.password);
+       return res.json({result:result});
+    } catch(error) {
+        console.error(`error is ${JSON.stringify(error)}`);
+        return res.status(error.status).send(error.message);
     }
 });
 

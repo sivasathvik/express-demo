@@ -16,6 +16,12 @@ const User=sequelize.define("user", {
         type:DataTypes.STRING,
         allowNull: true
     },
+    salt: {
+        type:DataTypes.STRING,
+        allowNull: true,
+        unique: false,
+
+    }
 }, {timestamps: true}, );
 return User;
 };
