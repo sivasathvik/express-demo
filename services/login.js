@@ -1,5 +1,5 @@
 
-const { createError } = require("joi/lib/types/lazy");
+const { createError } = require('http-errors');
 const db=require("../models");
 const { Op } = require("sequelize");
 var bcrypt = require('bcryptjs');
