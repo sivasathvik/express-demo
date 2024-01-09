@@ -3,6 +3,7 @@ const { createError } = require("joi/lib/types/lazy");
 const db=require("../models");
 const { Op } = require("sequelize");
 var bcrypt = require('bcryptjs');
+const jwt=require('jsonwebtoken');
 
 const encryptPassword= async(password,salt) => {
     var hash = bcrypt.hashSync(password, salt);
@@ -35,8 +36,12 @@ module.exports= async function(email,password){
         const passwordFromUI=await encryptPassword(password,dbUser.salt);
         const result=await comparePasswords(passwordFromUI,dbUser.password);
         if(result){
-            console.log('generate token');
-            return "generate token";
+            const token = jwt.sign({ userId: dbUser.email }, 'your-secret-key', {
+                expiresIn: '1h',
+                });
+
+            //console.log(`generated token ${token}`);
+            return {token:token};
         } else{
             console.log('UserId password didnt match');
             return "User id password didnt match"
