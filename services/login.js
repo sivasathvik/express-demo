@@ -40,8 +40,8 @@ module.exports= async function(email,password){
                 expiresIn: '1h',
                 });
 
-            //console.log(`generated token ${token}`);
-            return {token:token};
+            console.log(`generated token ${token}`);
+            return {token:token,username:dbUser.name};
         } else{
             console.log('UserId password didnt match');
             return "User id password didnt match"
